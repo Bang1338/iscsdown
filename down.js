@@ -1,3 +1,5 @@
+// v2
+
 setInterval(function()
 {
 var address = "http://comic.studio";
@@ -71,6 +73,69 @@ timetaken = "";
 
 setInterval(function()
 {
+function ping() {
+  // The custom URL
+  var URL = "https://comic.studio";
+  var settings = {
+    cache: false,
+    dataType: "jsonp",
+    async: true,
+    crossDomain: true,
+    url: URL,
+    method: "GET",
+  // For response
+    statusCode: {
+      200: function (response) {
+        document.getElementById("isdown2").innerHTML = "No (200)";
+      },
+      400: function (response) {
+        document.getElementById("isdown2").innerHTML = "Yes (400)";
+      },
+      500: function (response) {
+        document.getElementById("isdown2").innerHTML = "Yes (500 - internal server error)";
+      },
+      502: function (response) {
+        document.getElementById("isdown2").innerHTML = "Yes (502 - bad gateway)";
+      },
+      503: function (response) {
+        document.getElementById("isdown2").innerHTML = "Yes (503 - service temporarily unavailable)";
+      },
+      504: function (response) {
+        document.getElementById("isdown2").innerHTML = "Yes (504 - gateway timeout)";
+      },
+      520: function (response) {
+        document.getElementById("isdown2").innerHTML = "Yes (520 - I have no idea.)";
+      },
+      521: function (response) {
+        document.getElementById("isdown2").innerHTML = "Yes (521 - WEB SERVER IS DOWN)";
+      },
+      522: function (response) {
+        document.getElementById("isdown2").innerHTML = "Yes (522 - connection timeout)";
+      },
+      523: function (response) {
+        document.getElementById("isdown2").innerHTML = "Yes (523 - UVC lamp. Just kidding, origin is unreachable.)";
+      },
+      524: function (response) {
+        document.getElementById("isdown2").innerHTML = "Yes (524 - Default, a timeout occurred)";
+      },
+      0: function (response) {
+        document.getElementById("isdown2").innerHTML = "Yes (0)";
+      },
+    },
+  };
+  // Sends the request and observes the response
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+}
+
+ping()
+
+
+}, 5000);
+
+setInterval(function()
+{
     function isSiteOnline(url,callback) {
     // try to load favicon
     var timer = setTimeout(function(){
@@ -93,10 +158,10 @@ setInterval(function()
     }
     isSiteOnline("http://cdn.comic.studio",function(found){
     if(found) {
-        document.getElementById("isdown2").innerHTML = "No";
+        document.getElementById("isdown3").innerHTML = "No";
     }
     else {
-        document.getElementById("isdown2").innerHTML = "Yes";
+        document.getElementById("isdown3").innerHTML = "Yes";
     }
     })
 
@@ -111,11 +176,11 @@ setInterval(function()
     var script = document.body.appendChild(document.createElement("script"));
     script.onload = function()
     {
-        document.getElementById("isdown3").innerHTML = "No";
+        document.getElementById("isdown4").innerHTML = "No";
     }
     script.onerror = function()
     {
-        document.getElementById("isdown3").innerHTML = "Yes";
+        document.getElementById("isdown4").innerHTML = "Yes";
     };
     script.src = url;
     }
